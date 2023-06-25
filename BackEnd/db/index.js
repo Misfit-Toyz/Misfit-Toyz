@@ -10,6 +10,6 @@ const client = new Client(connectionString);
 module.exports = {
     client,
 // ...require("./Users"),
-// ...require("./Products"),
+...require("./Products"),
 // ...require("./ShoppingCart"),
 }
