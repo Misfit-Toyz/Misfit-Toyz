@@ -112,3 +112,42 @@ res.send(orders);
   });
   }
   });
+
+// POST
+// Route to submit an order
+ordersRouter.post('/submit_order', async (req, res) => {
+  // Check if all required fields are present in the request body
+  if (Object.keys(req.body).length < 3) {
+  return res.status(400).send({
+  name: 'InformationRequired',
+  message: 'Please provide userId, status, and total to submit your order.',
+  });
+  }
+  
+  const { userId, status, total } = req.body;
+  
+  // Check if the logged-in user's ID matches the provided userId
+  if (req.user.id !== userId) {
+  return res.status(403).send({ name: 'Wrong user', message: 'Please log in to your account.' });
+  }
+  
+  try {
+  // Create an order using the provided information
+  const order = await createOrder({ userId, status, total });
+  // Send the response with the order details and a success message
+res.send({
+  order: {
+    id: order.id,
+    userId: order.userId,
+    status: order.status,
+    total: order.total,
+    date: order.date,
+  },
+  message: 'Your order has been received. Thank you for your purchase.',
+});
+} catch (error) {
+  console.log(error);
+  }
+  });
+  
+  module.exports = ordersRouter;
