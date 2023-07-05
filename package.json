@@ -4,12 +4,15 @@
   "description": "��#\u0000 \u0000M\u0000i\u0000s\u0000f\u0000i\u0000t\u0000-\u0000T\u0000o\u0000y\u0000z\u0000\r\u0000 \u0000",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed:dev": "nodemon ./BackEnd/db/Seed.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pg": "^8.11.0"
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "pg": "^8.11.1"
   }
 }
