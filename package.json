@@ -5,14 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed:dev": "nodemon ./BackEnd/db/Seed.js"
+    "seed:dev": "nodemon ./BackEnd/db/Seed.js",
+    "start": "react-scripts start",
+    "start:dev": "nodemon ./BackEnd/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
-    "pg": "^8.11.1"
+    "pg": "^8.11.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
+    "react-scripts": "^5.0.1"
   }
 }

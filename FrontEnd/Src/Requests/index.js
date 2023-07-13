@@ -1,0 +1,56 @@
+
+//NEEDS A BASE URL
+const BASE_URL = "localhost:3000/api"
+
+export const getCartData = async () => {
+    try{
+        const response = await fetch(
+            `${BASE_URL}/cart`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const result = await response.json();
+            console.log("GET CART", result);
+            return result
+        } catch(err) {
+            console.error(err);
+        }
+};
+
+export const addItem = async (userId) => {
+    try{
+        const response = await fetch(
+            `${BASE_URL}/cart`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    userId
+                )
+            });
+            const result = await response.json();
+            console.log("ADD ITEM", result);
+            return result
+    } catch(err) {
+        console.error(err);
+    }
+};
+
+export const deleteFromCart = async (productId) => {
+    try{
+        const response = await fetch(
+            `${BASE_URL}/shoppingCart/${productId}`,{
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            const result = await response.json();
+            console.log("DELETE FROM CART", result);
+            return result 
+    } catch (err) {
+        console.error(err);
+    }
+}

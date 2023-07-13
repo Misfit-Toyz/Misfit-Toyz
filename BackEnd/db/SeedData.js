@@ -1,5 +1,4 @@
-const { client } = require("./index");
-const { addToCart, getCart, deleteItem } = require("./ShoppingCart");
+const { client } = require("./client");
 
 async function dropTables() {
   console.log("dropping all tables");
@@ -20,7 +19,7 @@ async function createTables() {
         username VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL
       );
-        CREATE TABLE products (
+      CREATE TABLE products (
           productId SERIAL PRIMARY KEY,
           title VARCHAR(255) UNIQUE NOT NULL,
           description TEXT NOT NULL,
@@ -47,9 +46,6 @@ async function rebuildDB() {
   try {
     await dropTables();
     await createTables();
-    await addToCart(1);
-    await getCart(1);
-    await deleteItem(1);
   } catch (error) {
     console.log("Error during rebuildDB", error);
   }
