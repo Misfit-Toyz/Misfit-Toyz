@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from 'react';
+import { getCartData } from "../Requests";
+
 //display items in cart and quantity
 //show a total price
 //have a remove from cart button
@@ -5,7 +8,19 @@
 
 //-----------requires api functions and requests that work-------------
 
-function cart() {
+const Cart = () => {
+
+    const [cart, setCart] = useState([]);
+
+    const getCart = async () => {
+        const result = await getCartData();
+        setCart(result)
+    }
+
+    useEffect(() => {
+        getCart();
+    }, []);
+
     async function handleSubmit(event){
         event.preventDefault();
         alert("Thank you for your patronage");
@@ -13,6 +28,7 @@ function cart() {
     }
 
     return (
+        
         <form onSubmit={handleSubmit}>
             <button type='submit'>Checkout</button>
         </form>
@@ -24,3 +40,5 @@ function cart() {
 
     //display the items in the cart on this page
 }
+
+export default Cart;

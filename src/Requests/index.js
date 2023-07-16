@@ -1,6 +1,6 @@
 
 //NEEDS A BASE URL
-const BASE_URL = "localhost:3000/api"
+const BASE_URL = "https://misfit-toys-test.onrender.com/api"
 
 export const getCartData = async () => {
     try{

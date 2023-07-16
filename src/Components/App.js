@@ -1,5 +1,5 @@
-
-import {Routes, Route} from "react-router-dom"
+import {Routes, Route} from "react-router-dom";
+import Cart from "./ShoppingCart";
 
 const App = () => {
 
@@ -7,17 +7,17 @@ return (
     <>
     
     <Routes>
-        <Route 
+        {/* <Route 
         path="/"
         />
         <Route 
         path="/products"
-        />
+        /> */}
         <Route 
         path="/shoppingcart"
-        element={<ShoppingCart/>}
+        element={<Cart/>}
         />
-        <Route 
+        {/* <Route 
         path="signup"
         />
         <Route 
@@ -25,7 +25,7 @@ return (
         />
         <Route
          path="profile"
-         />
+         /> */}
     </Routes>
     </>
 )
