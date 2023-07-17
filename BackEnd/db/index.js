@@ -11,5 +11,5 @@ module.exports = {
     client,
 // ...require("./Users"),
 ...require("./Products"),
-// ...require("./ShoppingCart"),
+...require("./ShoppingCart"),
 }

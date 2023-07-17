@@ -91,10 +91,30 @@ async function updateProduct({productId, ...fields}) {
     }
 }
 
+
+async function deleteProduct (productId) {
+  try {
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+      DELETE FROM products
+      WHERE productId = $1
+      RETURNING *;
+      `, [productId]
+    )
+
+    return product
+  } catch (error) {
+    console.log("Error in deleteProduct")
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
   getProductByTitle,
-  updateProduct
+  updateProduct,
+  deleteProduct
 };
