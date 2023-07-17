@@ -1,11 +1,11 @@
 import {Routes, Route} from "react-router-dom";
-import Cart from "./ShoppingCart";
+import { Cart, Header } from "./index";
 
 const App = () => {
 
 return (
     <>
-    
+    <Header/>
     <Routes>
         {/* <Route 
         path="/"

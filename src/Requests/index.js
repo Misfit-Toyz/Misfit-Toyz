@@ -1,4 +1,3 @@
-
 //NEEDS A BASE URL
 const BASE_URL = "https://misfit-toys-test.onrender.com/api"
 
@@ -18,16 +17,18 @@ export const getCartData = async () => {
         }
 };
 
-export const addItem = async (userId) => {
+export const addItem = async (shoppingId, productId, quantity) => {
     try{
-        const response = await fetch(
-            `${BASE_URL}/cart`, {
+        console.log("API REQUEST", shoppingId, productId, quantity)
+        const response = await fetch(`${BASE_URL}/cart`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(
-                    userId
+                    shoppingId,
+                    productId,
+                    quantity
                 )
             });
             const result = await response.json();

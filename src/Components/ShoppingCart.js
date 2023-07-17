@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getCartData } from "../Requests";
+import { getCartData, deleteFromCart, addItem } from "../Requests";
 
 //display items in cart and quantity
 //show a total price
@@ -13,17 +13,26 @@ const Cart = () => {
     const [cart, setCart] = useState([]);
 
     const getCart = async () => {
-        const result = await getCartData();
-        setCart(result)
+        const results = await getCartData();
+        console.log("CART RESULT", results);
+        setCart(results)
     }
+
+    const add = async (shoppingId, productId, quantity) => {
+        console.log(shoppingId, productId, quantity)
+        const results = await addItem(shoppingId, productId, quantity);
+        console.log("ADD RESULT", results);
+    };
 
     useEffect(() => {
         getCart();
+        add(1, 1, 1);
     }, []);
 
     async function handleSubmit(event){
         event.preventDefault();
         alert("Thank you for your patronage");
+        add(1, 1, 1);
         //delete everything from the cart using an api from Requests
     }
 
