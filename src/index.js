@@ -4,6 +4,9 @@ import { App } from './components/App'
 
 const root = createRoot(document.querySelector('#app'));
 
+
+
+
 root.render(<BrowserRouter>
     <App />
 </BrowserRouter>

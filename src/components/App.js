@@ -3,7 +3,8 @@ import Login from './login'
 import Signup from "./signup";
 import Profile from "./profile"
 import { myData } from '../ajax-requests'
-import {  Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 
 
 // import Header from "./Header"
@@ -11,15 +12,16 @@ import {  Routes, Route } from 'react-router-dom';
 export const App = () => {
 
     const [LoggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState({});
-    const [token, setToken] = useState("")
+   
+    const [token, setToken] = useState('');
+
 
     function tokenCheck() {
         if (window.localStorage.getItem('token')) {
             setToken(window.localStorage.getItem('token'));
-
         }
     }
+
 
 
 
@@ -41,8 +43,7 @@ export const App = () => {
         }
     }, [token])
 
-
-
+   
 
     return (
         <>

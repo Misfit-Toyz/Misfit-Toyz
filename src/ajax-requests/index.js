@@ -1,3 +1,6 @@
+const BASE_URL = 'http://localhost:3000/api'
+
+
 export const registerUser = async (user) => {
 
     try {
@@ -6,10 +9,10 @@ export const registerUser = async (user) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
+            body: JSON.stringify({
                 user
 
-            ),
+        }),
         });
         const result = await response.json();
 
@@ -28,9 +31,9 @@ export const login = async (user) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
+            body: JSON.stringify({
                 user,
-            )
+        })
         });
         const result = await response.json();
         console.log(result);
