@@ -19,14 +19,14 @@ const Cart = () => {
     }
 
     const add = async (shoppingId, productId, quantity) => {
-        console.log(shoppingId, productId, quantity)
+        getCart();
         const results = await addItem(shoppingId, productId, quantity);
         console.log("ADD RESULT", results);
     };
 
     useEffect(() => {
         getCart();
-        add(1, 1, 1);
+        add();
     }, []);
 
     async function handleSubmit(event){

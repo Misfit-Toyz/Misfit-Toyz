@@ -25,11 +25,11 @@ export const addItem = async (shoppingId, productId, quantity) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(
+                body: JSON.stringify({
                     shoppingId,
                     productId,
                     quantity
-                )
+                })
             });
             const result = await response.json();
             console.log("ADD ITEM", result);
