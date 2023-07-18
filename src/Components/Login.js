@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { login } from '../index'
+import { login } from '../Requests/Index'
+
 
 
 
@@ -46,6 +47,8 @@ function Login({ setToken, navigate }) {
             <Link to='/register'>Don't have an account? Sign up</Link>
         </form>
     )
+    
 }
+
 
 export default Login;

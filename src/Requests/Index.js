@@ -20,17 +20,19 @@ export const getCartData = async () => {
         }
 };
 
-export const addItem = async (userId) => {
+export const addItem = async (shoppingId, productId, quantity) => {
     try{
-        const response = await fetch(
-            `${BASE_URL}/cart`, {
+        console.log("API REQUEST", shoppingId, productId, quantity)
+        const response = await fetch(`${BASE_URL}/cart`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(
-                    userId
-                )
+                body: JSON.stringify({
+                    shoppingId,
+                    productId,
+                    quantity
+                })
             });
             const result = await response.json();
             console.log("ADD ITEM", result);
@@ -148,10 +150,10 @@ export const fetchProducts = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
+            body: JSON.stringify({
                 user
 
-            ),
+        }),
         });
         const result = await response.json();
 
@@ -170,9 +172,9 @@ export const login = async (user) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
+            body: JSON.stringify({
                 user,
-            )
+        })
         });
         const result = await response.json();
         console.log(result);
