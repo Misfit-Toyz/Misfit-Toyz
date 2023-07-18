@@ -3,15 +3,17 @@ const router = express.Router()
 
 
 const usersRouter = require("./users")
+const cartRouter = require("./ShoppingCart");
+const productsRouter = require("./Products")
 
-const productsRouter = require("./products")
+
 router.use("/Products", productsRouter)
+router.use("/cart", cartRouter)
 
-const cartRouter = require("./ShoppingCart")
+
 
 router.get("*", (req, res) => {
     res.status(404).send({ message: "Error, can't find that page!"})
 })
 
-
-// require user middleware?
+module.exports = router

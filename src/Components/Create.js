@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { createProduct } from "../Requests/Products";
+import { createProduct } from "../Requests/Index";
 
 import { useNavigate } from "react-router-dom";
 

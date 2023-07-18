@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import { fetchProducts, updateProduct, deleteProduct, addItem } from "../Requests/Index";
 
-const Products = ({ signedIn }) => {
+const Products = ({ LoggedIn }) => {
   const [products, setProducts] = useState([]);
   const [editProductTitle, setEditProductTitle] = useState("");
   const [editProductPrice, setEditProductPrice] = useState("");

@@ -1,4 +1,4 @@
-const client = require("./index");
+const client = require("./client");
 
 async function createProduct({ title, description, price }) {
   const {
@@ -17,82 +17,84 @@ async function createProduct({ title, description, price }) {
 }
 
 async function getAllProducts() {
-    try {
-        const {rows} = await client.query(`
+  try {
+    const { rows } = await client.query(`
         SELECT * FROM products;
-        `)
+        `);
 
-        return rows
-    } catch(error) {
-        console.log("Error in getAllProducts");
-        throw error;
-    }
+    return rows;
+  } catch (error) {
+    console.log("Error in getAllProducts");
+    throw error;
+  }
 }
 
 async function getProductById(productId) {
-    try {
-      const {
-        rows: [product],
-      } = await client.query(`
+  try {
+    const {
+      rows: [product],
+    } = await client.query(
+      `
         SELECT * FROM products
         WHERE id = $1;
       `,
-        [productId]
-      )
+      [productId]
+    );
 
-      return product
-    } catch(error) {
-        console.log("Error in getProductById");
-        throw error;
-    }
+    return product;
+  } catch (error) {
+    console.log("Error in getProductById");
+    throw error;
+  }
 }
 
 async function getProductByTitle(title) {
-    try {
-      const {
-        rows: [product],
-      } = await client.query(`
+  try {
+    const {
+      rows: [product],
+    } = await client.query(
+      `
         SELECT * FROM products
         WHERE title = $1; 
-      `, [title])
-      
-      return product
-     } catch(error) {
-        console.log("Error in getProductByTitle");
-        throw error;
-    }
+      `,
+      [title]
+    );
+
+    return product;
+  } catch (error) {
+    console.log("Error in getProductByTitle");
+    throw error;
+  }
 }
 
-async function updateProduct({productId, ...fields}) {
-
+async function updateProduct({ productId, ...fields }) {
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=${index + 1}`)
-    .join(",")
+    .join(",");
 
-    try {
-      if (setString.length > 0) {
-        const {
-          rows: [product],
-        } = await client.query(
-          `
+  try {
+    if (setString.length > 0) {
+      const {
+        rows: [product],
+      } = await client.query(
+        `
           UPDATE products
           SET ${setString}
           WHERE productId=${productId}
           RETURNING *;
           `,
-          Object.values(fields)
-        )
+        Object.values(fields)
+      );
 
-        return product
-      }
-    } catch (error) {
-      console.log("Error in updateProduct")
-      throw error
+      return product;
     }
+  } catch (error) {
+    console.log("Error in updateProduct");
+    throw error;
+  }
 }
 
-
-async function deleteProduct (productId) {
+async function deleteProduct(productId) {
   try {
     const {
       rows: [product],
@@ -101,12 +103,13 @@ async function deleteProduct (productId) {
       DELETE FROM products
       WHERE productId = $1
       RETURNING *;
-      `, [productId]
-    )
+      `,
+      [productId]
+    );
 
-    return product
+    return product;
   } catch (error) {
-    console.log("Error in deleteProduct")
+    console.log("Error in deleteProduct");
   }
 }
 
@@ -116,5 +119,5 @@ module.exports = {
   getProductById,
   getProductByTitle,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };

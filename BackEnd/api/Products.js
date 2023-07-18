@@ -5,8 +5,8 @@ const {
   getAllProducts,
   getProductById,
   getProductByTitle,
-  updateProduct
-} = require("../db");
+  updateProduct,
+} = require("../db/client");
 
 const productsRouter = express.Router();
 
@@ -20,7 +20,6 @@ productsRouter.get("/", async (req, res, next) => {
 });
 
 productsRouter.post("/", async (req, res, next) => {
-
   const { title, description } = req.body;
 
   try {
@@ -38,7 +37,6 @@ productsRouter.post("/", async (req, res, next) => {
       res.send(createdProduct);
     }
   } catch ({ name, message }) {
-    
     next({ name, message });
   }
 });
@@ -50,30 +48,30 @@ productsRouter.patch("/:productId", async (req, res, next) => {
   try {
     const checkProductId = getProductById(productId);
 
-    if(!checkProductId) {
-        res.send({
-            error: "Product Not Found",
-            message: `Product ${productId} not found`,
-            name: "ProductAlreadyExists"
-        })
+    if (!checkProductId) {
+      res.send({
+        error: "Product Not Found",
+        message: `Product ${productId} not found`,
+        name: "ProductAlreadyExists",
+      });
     }
 
     const productTitle = await getProductByTitle(title);
 
     if (productTitle && productTitle.id !== productId) {
-        res.send({
-            error: "Product Already Exists",
-            message: `A product with title ${productTitle.title} already exists`,
-            name: "ProductAlreadyExists"
-        });
+      res.send({
+        error: "Product Already Exists",
+        message: `A product with title ${productTitle.title} already exists`,
+        name: "ProductAlreadyExists",
+      });
     } else {
-        const update = await updateProduct({
-            productId: productId,
-            title: title,
-            description: description
-        });
+      const update = await updateProduct({
+        productId: productId,
+        title: title,
+        description: description,
+      });
 
-        res.send(update)
+      res.send(update);
     }
   } catch ({ name, message }) {
     next({ name, message });
