@@ -27,7 +27,7 @@ async function createTables() {
           price INTEGER
       ); 
       CREATE TABLE shoppingCart(
-        cartId SERIAL PRIMARY KEY,
+        "cartId" SERIAL PRIMARY KEY,
         "ownerId" INTEGER REFERENCES users ( userId )
       );
       CREATE TABLE cartItems(

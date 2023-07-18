@@ -1,11 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {
-  fetchProducts,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from "../Requests/Products";
+
+
+import { fetchProducts, updateProduct, deleteProduct, addItem } from "../Requests/Index";
 
 const Products = ({ signedIn }) => {
   const [products, setProducts] = useState([]);
@@ -35,7 +32,7 @@ const Products = ({ signedIn }) => {
             <h3>{product.title}</h3>
             <p>{product.description}</p>
             <p>{product.price}</p>
-            {/* <button onClick={addToCart(   shoppingId?  ,product.id, 1)}>Add to Cart</button> */}
+            <button onClick={addItem(product.id, 1)}>Add to Cart</button>
             {signedIn ? (
               <>
                 <button
