@@ -7,8 +7,8 @@ const { getUserById } = require('../db/users');
 
 const usersRouter = require("./Users")
 
-const productsRouter = require("./products")
-router.use("/Products", productsRouter)
+// const productsRouter = require("./products")
+// router.use("/Products", productsRouter)
 
 const shoppingCartRouter = require("./ShoppingCart")
 

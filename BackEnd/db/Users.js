@@ -9,7 +9,7 @@ async function createUser ({username, password}) {
             VALUES ($1,$2)
             ON CONFLICT (username) DO NOTHING 
             RETURNING *;
-            `,[username, isAdmin]
+            `,[username, password]
         );
         return user;
     } catch(error){
@@ -25,7 +25,8 @@ async function getUser ({username, password}) {
             SELECT *
             FROM users
             WHERE username = $1;
-            `,[username]
+            WHERE password = $1;
+            `,[username, password]
         );
         
         return user;

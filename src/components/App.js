@@ -3,7 +3,7 @@ import Login from './login'
 import Signup from "./signup";
 import Profile from "./profile"
 import { myData } from '../ajax-requests'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {  Routes, Route } from 'react-router-dom';
 
 
 

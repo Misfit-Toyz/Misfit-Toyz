@@ -37,48 +37,84 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-usersRouter.post('/register', async (req, res, next) => {
-    try {
-        const { username, password, isAdmin } = req.body;
+// usersRouter.post('/register', async (req, res, next) => {
+//     try {
+//         const { username, password, isAdmin } = req.body;
 
-        if (!username || !password) {
-            res.send({
-                error: 'MissingUsernamePassword',
-                name: 'Missing Username or Password',
-                message: 'Please enter a username and password'
-            })
-        } else if (password.length < 8) {
-            res.send({
-                error:'PasswordTooShort',
-                name:'PasswordTooShort',
-                message:'Password is too short!',
-            })
-        } else {
-            const _user = await getUserByUsername(username);
-            if(_user) {
-                res.send({
-                    error:'UsernameAlreadyTaken',
-                    name:'UsernameAlreadyTaken',
-                    message:'User ${username} is already taken'
-                })
-            } else {
-                const user = await createUser ({
-                    username, password
-                });
-                if(user){
-                    const token = jwt.sign(user, JWT_SECRET);
-                    res.send({
-                        name:'RegisterSuccessful',
-                        message:'Thank you for signing up',
-                        user,
-                    })
-                }
-            }
-        }
+//         if (!username || !password) {
+//             res.send({
+//                 error: 'MissingUsernamePassword',
+//                 name: 'Missing Username or Password',
+//                 message: 'Please enter a username and password'
+//             })
+//         } else if (password.length < 8) {
+//             res.send({
+//                 error:'PasswordTooShort',
+//                 name:'PasswordTooShort',
+//                 message:'Password is too short!',
+//             })
+//         } else {
+//             const _user = await getUserByUsername(username);
+//             if(_user) {
+//                 res.send({
+//                     error:'UsernameAlreadyTaken',
+//                     name:'UsernameAlreadyTaken',
+//                     message:'User ${username} is already taken'
+//                 })
+//             } else {
+//                 const user = await createUser ({
+//                     username, password
+//                 });
+//                 if(user){
+//                     const token = jwt.sign(user, JWT_SECRET);
+//                     res.send({
+//                         name:'RegisterSuccessful',
+//                         message:'Thank you for signing up',
+//                         user,
+//                     })
+//                 }
+//             }
+//         }
           
 
-    } catch ({ error, message }) {
-        next({ name, message });
+//     } catch ({ error, message }) {
+//         next({ name, message });
+//     }
+// })
+
+usersRouter.post('/register', async (req, res, next) => {
+    const { username, password } = req.body;
+
+    try {
+        const _user = await getUserByUsername(username);
+
+        if (_user) {
+            next({
+                name: 'UserExistsError',
+                message: 'A user by that username already exists'
+            })
+        }
+
+        const user = await createUser({
+            username,
+            password
+        })
+
+        const token = jwt.sign({
+            id: user.id,
+            username
+        }, process.env.JWT_SECRET, {
+            expiresIn: '1w'
+        })
+
+        res.send({
+            message: "thank you for signing up",
+            token
+        });
+    } catch ({ name, message }) {
+        next({ name, message })
     }
 })
 
+
+module.exports = usersRouter;
