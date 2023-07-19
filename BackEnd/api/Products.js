@@ -7,7 +7,7 @@ const {
   getProductById,
   getProductByTitle,
   updateProduct,
-} = require("../db/client");
+} = require("../db");
 
 const productsRouter = express.Router();
 

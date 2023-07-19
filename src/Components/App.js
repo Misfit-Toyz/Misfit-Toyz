@@ -1,5 +1,5 @@
 import {Routes, Route} from "react-router-dom";
-import { Cart, Header } from "./index";
+import { Cart, Header, Products, Home } from "./index";
 
 const App = () => {
 
@@ -7,12 +7,14 @@ return (
     <>
     <Header/>
     <Routes>
-        {/* <Route 
+        <Route 
         path="/"
+        element={<Home/>}
         />
         <Route 
         path="/products"
-        /> */}
+        element={<Products/>}
+        />
         <Route 
         path="/shoppingcart"
         element={<Cart/>}
