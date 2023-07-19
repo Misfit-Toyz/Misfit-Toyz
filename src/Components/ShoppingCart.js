@@ -52,7 +52,7 @@ import { getCartData, deleteFromCart, addItem } from "../Requests";
                     </div>
                    <div className="itemPrice">
                         <h3>${cartItem.price}</h3>
-                   <button className="remove" onClick={()=>deleteFromCart()}>Remove From Cart</button>
+                   <button className="remove" onClick={()=>deleteFromCart(1)}>Remove From Cart</button>
                    </div>
                     </div>
                      ))}
@@ -62,12 +62,6 @@ import { getCartData, deleteFromCart, addItem } from "../Requests";
                </div>
              </>
 );
-
-    //put a button on each item that removes only it from the shopping cart
-
-    //have a display that adds the total price of the items
-
-    //display the items in the cart on this page
 }
 
 export default Cart;
