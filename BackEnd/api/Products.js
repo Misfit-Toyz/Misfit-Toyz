@@ -11,12 +11,17 @@ const {
 
 const productsRouter = express.Router();
 
+productsRouter.use('*', (req, res, next) => {
+    console.log("REACHING PRODUCTS ROUTER");
+    next();
+});
+
 productsRouter.get("/", async (req, res, next) => {
   try {
     const products = await getAllProducts();
     res.send(products);
-  } catch ({ name, message }) {
-    next({ name, message });
+  } catch (error) {
+    next.error;
   }
 });
 
@@ -37,8 +42,8 @@ productsRouter.post("/", async (req, res, next) => {
 
       res.send(createdProduct);
     }
-  } catch ({ name, message }) {
-    next({ name, message });
+  } catch (error) {
+    next.error;
   }
 });
 
@@ -80,8 +85,3 @@ productsRouter.patch("/:productId", async (req, res, next) => {
 });
 
 module.exports = productsRouter;
-
-
-
-
-
