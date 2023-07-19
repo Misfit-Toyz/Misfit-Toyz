@@ -18,9 +18,8 @@ function Signup ({ setToken }) {
         } else {
             setToken(results.token);
             window.localStorage.setItem("token", results.token)
-            
+            alert("register successful")
         }
-
     }
 
     return (
@@ -28,16 +27,18 @@ function Signup ({ setToken }) {
             <form onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <input
+                className='usernameInput'
                     type='text'
                     placeholder='Enter Username'
                     onChange={(event) => setUsername(event.target.value)}
                 />
                 <input
+                className='passwordInput'
                     type='password'
                     placeholder='Enter Password'
                     onChange={(event) => setPassword(event.target.value)}
                 />
-                <button className='register-form' type='submit'>Sign Up</button>
+                <button className='signupButton' type='submit'>Sign Up</button>
             </form>
         </div>
     )

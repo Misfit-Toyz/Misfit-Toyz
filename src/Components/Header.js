@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom"
 
+const Header = ({setLoggedIn, LoggedIn, setToken}) => {
 
-
-const Header = ({signedIn}) => {
+    function logout() {
+        setToken('');
+        setLoggedIn(false);
+        window.localStorage.removeItem('token');
+        alert('You have been logged out');
+    }
 
     return (
         <>
@@ -15,7 +20,7 @@ const Header = ({signedIn}) => {
                 
                 
     
-                {!signedIn ? (
+                {!LoggedIn ? (
                     <>
                     
                     <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}}><Link to="/signup">Sign Up</Link></button>
@@ -23,7 +28,10 @@ const Header = ({signedIn}) => {
                     
                     </>
                 ) : (
-                    <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}}><Link to="/logout">Log Out</Link></button>
+                    <>
+                    <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}} onClick={logout}>Log Out</button>
+                    <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}}><Link to="/profile">Profile</Link></button>
+                    </>
                     )}
                 
                     <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}}><Link to="/shoppingcart">Cart</Link></button>

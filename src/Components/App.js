@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import { Cart, Header, Products, Home, Signup, Login, Profile } from "./index";
 import { myData } from "../Requests";
 
@@ -8,8 +8,9 @@ const App = () => {
         const [LoggedIn, setLoggedIn] = useState(false);
        
         const [token, setToken] = useState('');
-    
-    
+
+        const navigate = useNavigate();
+
         function tokenCheck() {
             if (window.localStorage.getItem('token')) {
                 setToken(window.localStorage.getItem('token'));
@@ -42,7 +43,10 @@ const App = () => {
 
 return (
     <>
-    <Header/>
+    <Header
+        setToken={setToken} 
+        setIsLoggedIn={setLoggedIn} 
+        isLoggedIn={LoggedIn} />
     <Routes>
         <Route 
         path="/"
@@ -58,11 +62,11 @@ return (
         />
         <Route
         path='/signup'
-        element={<Signup setToken={setToken} />} 
+        element={<Signup setToken={setToken} navigate={navigate} />} 
         />
         <Route
         path='/login'
-        element={<Login setToken={setToken} />} 
+        element={<Login setToken={setToken} navigate={navigate}/>} 
         />
         <Route
         path='/profile'

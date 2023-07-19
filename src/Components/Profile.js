@@ -4,15 +4,28 @@ import React, { useState } from "react";
 const Profile = () => {
     const [profile, setProfile] = useState({});
     const handleChange = (event) => {
+        console.log(profile);
         setProfile({
             ...profile,
             [event.target.name]: event.target.value,
         });
     };
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        alert('Profile changes added');
+        console.log(profile);
+        setProfile({
+            ...profile,
+            [event.target.name]: event.target.value,
+        });
+    }
+
     return (
-        <form>
+        <form className='profile' onSubmit={handleSubmit}>
             <label>First name</label>
             <input
+            className='profileInputs'
                 type="text"
                 name="firstName"
                 value={profile.firstName}
@@ -20,6 +33,7 @@ const Profile = () => {
             />
             <label>Last name</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="lastName"
                 value={profile.lastName}
@@ -27,6 +41,7 @@ const Profile = () => {
             />
             <label>Address</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="address"
                 value={profile.address}
@@ -34,6 +49,7 @@ const Profile = () => {
             />
             <label>City</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="city"
                 value={profile.city}
@@ -41,6 +57,7 @@ const Profile = () => {
             />
             <label>State</label>
             <input
+                className='profileInputs'   
                 type="text"
                 name="state"
                 value={profile.state}
@@ -48,6 +65,7 @@ const Profile = () => {
             />
             <label>Zip code</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="zipCode"
                 value={profile.zipCode}
@@ -55,6 +73,7 @@ const Profile = () => {
             />
             <label>Billing card number</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingCardNumber"
                 value={profile.billingCardNumber}
@@ -62,6 +81,7 @@ const Profile = () => {
             />
             <label>Billing card expiration date</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingCardExpirationDate"
                 value={profile.billingCardExpirationDate}
@@ -69,6 +89,7 @@ const Profile = () => {
             />
             <label>Billing card security code</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingCardSecurityCode"
                 value={profile.billingCardSecurityCode}
@@ -77,6 +98,7 @@ const Profile = () => {
 
             <label>Billing address</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingAddress"
                 value={profile.billingAddress}
@@ -84,6 +106,7 @@ const Profile = () => {
             />
             <label>Billing city</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingCity"
                 value={profile.billingCity}
@@ -91,6 +114,7 @@ const Profile = () => {
             />
             <label>Billing state</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingState"
                 value={profile.billingState}
@@ -98,12 +122,13 @@ const Profile = () => {
             />
             <label>Billing zip code</label>
             <input
+                className='profileInputs'
                 type="text"
                 name="billingZipCode"
                 value={profile.billingZipCode}
                 onChange={handleChange}
             />
-
+            <button className='signupButton' type='submit'>submit</button>
         </form>
         
         

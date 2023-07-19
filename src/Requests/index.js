@@ -43,8 +43,9 @@ export const addItem = async (shoppingId, productId, quantity) => {
 
 export const deleteFromCart = async (productId) => {
     try{
+      console.log("DELETE FROM CART STARTING")
         const response = await fetch(
-            `${BASE_URL}/shoppingCart/${productId}`,{
+            `${BASE_URL}/cart/${productId}`,{
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
@@ -180,6 +181,7 @@ export const login = async (user) => {
     console.error(err);
   }
 };
+
 export const myData = async (token) => {
     try {
         const response = await fetch(`${BASE_URL}/users/me`, {

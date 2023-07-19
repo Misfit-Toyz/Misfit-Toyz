@@ -22,8 +22,9 @@ function Login({ setToken, navigate }) {
             console.log("NO LOGIN")
         } else {
         setToken(results.token);
-        window.localStorage.setItem("token", results.token)
-        window.alert('Thanks for logging in to our service.')
+        window.localStorage.setItem("token", results.token);
+        navigate('/');
+        window.alert('Thanks for logging in to our service.');
         }
 
     }
@@ -32,19 +33,21 @@ function Login({ setToken, navigate }) {
         <form className='login' onSubmit={handleSubmit}>
             <h1>Log In</h1>
             <input
+            className='usernameInput'
                 type='text'
                 value={username}
                 placeholder='Enter Username'
                 onChange={(event) => setUsername(event.target.value)}
             />
             <input
+            className='passwordInput'
                 type='password'
                 value={password}
                 placeholder='Enter Password'
                 onChange={(event) => setPassword(event.target.value)}
             />
-            <button disabled={!username || !password} className='login-form' type='submit'>Login</button>
-            <Link to='/register'>Don't have an account? Sign up</Link>
+            <button disabled={!username || !password} className='loginButton' type='submit'>Login</button>
+            <Link to='/Signup' className='loginLink'>Don't have an account? Sign up</Link>
         </form>
     )
     

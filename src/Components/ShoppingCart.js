@@ -11,11 +11,11 @@ import { getCartData, deleteFromCart, addItem } from "../Requests";
 //query on cart items that match the shopping cart id
     //inner join products table where the item id matches the product id
     //map over query to display the products, and the cartItems
-
-const Cart = () => {
-
-    const [cart, setCart] = useState([]);
-
+    
+    const Cart = () => {
+        
+        const [cart, setCart] = useState([]);
+        
     const getCart = async () => {
         const results = await getCartData(1);
         //^make this dynamic
@@ -33,10 +33,9 @@ const Cart = () => {
         getCart();
     }, []);
 
-    async function handleSubmit(event){
-        event.preventDefault();
+    async function handleSubmit(ev){
+        ev.preventDefault();
         alert("Thank you for your patronage");
-        //delete everything from the cart using an api from Requests
     }
 
     return (
@@ -52,23 +51,11 @@ const Cart = () => {
                         <h3>{cartItem.description}</h3>
                     </div>
                    <div className="itemPrice">
-                        <h3>{cartItem.price}</h3>
-                   <button className="remove">Remove From Cart</button>
+                        <h3>${cartItem.price}</h3>
+                   <button className="remove" onClick={()=>deleteFromCart()}>Remove From Cart</button>
                    </div>
                     </div>
                      ))}
-                 <div className="cartItem">
-                    <div className="itemTitle">
-                        <h3>Broken train:</h3>
-                    </div>
-                    <div className="itemDescription">
-                        <h3>A train missing a wheel</h3>
-                    </div>
-                   <div className="itemPrice">
-                        <h3>$1.50</h3>
-                   <button className="remove">Remove From Cart</button>
-                   </div>
-                </div>
         <form onSubmit={handleSubmit}>
             <button className="checkout" type='submit'>Checkout</button>
         </form>
