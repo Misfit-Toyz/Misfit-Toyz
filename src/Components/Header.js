@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 
-const Header = ({setLoggedIn, LoggedIn, setToken}) => {
+const Header = ({setIsLoggedIn, isLoggedIn, setToken}) => {
 
     function logout() {
         setToken('');
-        setLoggedIn(false);
+        setIsLoggedIn(false);
         window.localStorage.removeItem('token');
         alert('You have been logged out');
     }
@@ -20,7 +20,7 @@ const Header = ({setLoggedIn, LoggedIn, setToken}) => {
                 
                 
     
-                {!LoggedIn ? (
+                {!isLoggedIn ? (
                     <>
                     
                     <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}}><Link to="/signup">Sign Up</Link></button>
@@ -29,8 +29,8 @@ const Header = ({setLoggedIn, LoggedIn, setToken}) => {
                     </>
                 ) : (
                     <>
-                    <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}} onClick={logout}>Log Out</button>
                     <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}}><Link to="/profile">Profile</Link></button>
+                    <button style={{padding: "1px 40px", backgroundColor: "green", fontSize: "20px", color: "white"}} onClick={logout}>Log Out</button>
                     </>
                     )}
                 

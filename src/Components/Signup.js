@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { registerUser } from '../Requests';
 
-function Signup ({ setToken }) {
+function Signup ({ setToken, navigate }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -14,10 +14,11 @@ function Signup ({ setToken }) {
         const results = await registerUser(user);
         console.log("REGISTER", results);
         if (!results) {
-            alert('register not working')
+            alert('Username Already Taken')
         } else {
             setToken(results.token);
             window.localStorage.setItem("token", results.token)
+            navigate('/login');
             alert("register successful")
         }
     }

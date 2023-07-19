@@ -20,15 +20,16 @@ async function getCart(userId) {
     try{
 
     const {rows: [usercart] } = await client.query(`
-        SELECT cartId from shoppingCart
+        SELECT "cartId" from shoppingCart
         WHERE "ownerId" = $1
     `, [userId])
 
     const {rows: shoppingCart } = await client.query(`
-    SELECT *
+    SELECT cartItems.*, products.*
     FROM cartItems
-    WHERE "shoppingId" = $1
-    `, [usercart]);
+    INNER JOIN products ON products."productId" = cartItems."itemId"
+    WHERE "shoppingId" = $1;
+    `, [usercart.cartId]);
     
     console.log("shopping cart", shoppingCart);
 
@@ -43,7 +44,7 @@ async function deleteItem(id) {
     try{
         const {rows: newItems} = await client.query(`
             DELETE FROM cartItems
-            WHERE cartItemId = $1
+            WHERE "itemId" = $1
             RETURNING *;
         `, [id]);
         console.log("DELETE", newItems);

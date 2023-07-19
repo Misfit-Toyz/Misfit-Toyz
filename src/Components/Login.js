@@ -19,7 +19,7 @@ function Login({ setToken, navigate }) {
         const results = await login(user);
 
         if (!results) {
-            console.log("NO LOGIN")
+            alert('user does not exist')
         } else {
         setToken(results.token);
         window.localStorage.setItem("token", results.token);

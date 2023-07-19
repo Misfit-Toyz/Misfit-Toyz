@@ -1,123 +1,98 @@
+const express = require("express");
 
-const {client} = require("./client");
-
-async function createProduct({ title, description, price }) {
-  const {
-    rows: [product],
-  } = await client.query(
-    `
-        INSERT INTO products (title, description, price)
-        VALUES ($1, $2, $3)
-        ON CONFLICT (title) DO NOTHING
-        RETURNING *;
-    `,
-    [title, description, price]
-  );
-
-  return product;
-};
-
-async function getAllProducts() {
-  try {
-    const { rows } = await client.query(`
-        SELECT * FROM products;
-        `);
-
-    return rows;
-  } catch (error) {
-    console.log("Error in getAllProducts", error);
-  }
-};
-
-async function getProductById(productId) {
-  try {
-    const {
-      rows: [product],
-    } = await client.query(
-      `
-        SELECT * FROM products
-        WHERE id = $1;
-      `,
-      [productId]
-    );
-
-    return product;
-  } catch (error) {
-    console.log("Error in getProductById");
-    throw error;
-  }
-};
-
-async function getProductByTitle(title) {
-  try {
-    const {
-      rows: [product],
-    } = await client.query(
-      `
-        SELECT * FROM products
-        WHERE title = $1; 
-      `,
-      [title]
-    );
-
-    return product;
-  } catch (error) {
-    console.log("Error in getProductByTitle");
-    throw error;
-  }
-};
-
-async function updateProduct({ productId, ...fields }) {
-  const setString = Object.keys(fields)
-    .map((key, index) => `"${key}"=${index + 1}`)
-    .join(",");
-
-  try {
-    if (setString.length > 0) {
-      const {
-        rows: [product],
-      } = await client.query(
-        `
-          UPDATE products
-          SET ${setString}
-          WHERE productId=${productId}
-          RETURNING *;
-          `,
-        Object.values(fields)
-      );
-
-      return product;
-    }
-  } catch (error) {
-    console.log("Error in updateProduct");
-    throw error;
-  }
-};
-
-async function deleteProduct(productId) {
-  try {
-    const {
-      rows: [product],
-    } = await client.query(
-      `
-      DELETE FROM products
-      WHERE productId = $1
-      RETURNING *;
-      `,
-      [productId]
-    );
-
-    return product;
-  } catch (error) {
-    console.log("Error in deleteProduct");
-  }
-};
-
-module.exports = {
+const {
   createProduct,
   getAllProducts,
   getProductById,
   getProductByTitle,
   updateProduct,
-  deleteProduct,
-};
+} = require("../db");
+
+const productsRouter = express.Router();
+
+productsRouter.use('*', (req, res, next) => {
+    console.log("REACHING PRODUCTS ROUTER");
+    next();
+});
+
+productsRouter.get("/", async (req, res, next) => {
+  try {
+    const products = await getAllProducts();
+    res.send(products);
+  } catch (error) {
+    next.error;
+  }
+});
+
+productsRouter.post("/", async (req, res, next) => {
+  const { title, description } = req.body;
+
+  try {
+    const product = getAllProducts(title);
+
+    if (product) {
+      res.send({
+        error: "Product Already Exists",
+        message: `A Product with title ${title} already exists`,
+        name: "product Already Exists",
+      });
+    } else {
+      const createdProduct = await createProduct({ title, description });
+
+      res.send(createdProduct);
+    }
+  } catch (error) {
+    next.error;
+  }
+});
+
+productsRouter.patch("/:productId", async (req, res, next) => {
+  const { productId } = req.params;
+  const { title, description } = req.body;
+
+  try {
+    const checkProductId = getProductById(productId);
+
+    if (!checkProductId) {
+      res.send({
+        error: "Product Not Found",
+        message: `Product ${productId} not found`,
+        name: "ProductAlreadyExists",
+      });
+    }
+
+    const productTitle = await getProductByTitle(title);
+
+    if (productTitle && productTitle.id !== productId) {
+      res.send({
+        error: "Product Already Exists",
+        message: `A product with title ${productTitle.title} already exists`,
+        name: "ProductAlreadyExists",
+      });
+    } else {
+      const update = await updateProduct({
+        productId: productId,
+        title: title,
+        description: description,
+      });
+
+      res.send(update);
+    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
+
+module.exports = productsRouter;
+
+
+
+
+
+
+
+
+
+
+
+
