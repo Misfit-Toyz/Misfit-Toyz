@@ -28,8 +28,7 @@ const Products = ({ LoggedIn }) => {
   async function handleSubmit(event){
     event.preventDefault();
     alert("Item Added");
-      add(1, 2, 1);
-      //delete everything from the cart using an api from Requests
+      add(1, 1, 1);
     }
   
   return (

@@ -1,12 +1,12 @@
 //NEEDS A BASE URL
-const BASE_URL = "http://localhost3001/api"
+const BASE_URL = "http://localhost:3002/api"
 
 // ---------------Cart requests------------
 
-export const getCartData = async () => {
+export const getCartData = async (userId) => {
     try{
         const response = await fetch(
-            `${BASE_URL}/cart`, {
+            `${BASE_URL}/cart/${userId}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -57,6 +57,7 @@ export const deleteFromCart = async (productId) => {
         console.error(err);
     }
 };
+
 
 // ---------------Products requests------------
 

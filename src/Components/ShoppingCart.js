@@ -7,13 +7,18 @@ import { getCartData, deleteFromCart, addItem } from "../Requests";
 //have a checkout button
 
 //-----------requires api functions and requests that work-------------
+//query for shopping cart table
+//query on cart items that match the shopping cart id
+    //inner join products table where the item id matches the product id
+    //map over query to display the products, and the cartItems
 
 const Cart = () => {
 
     const [cart, setCart] = useState([]);
 
     const getCart = async () => {
-        const results = await getCartData();
+        const results = await getCartData(1);
+        //^make this dynamic
         console.log("CART RESULT", results);
         setCart(results)
     }
