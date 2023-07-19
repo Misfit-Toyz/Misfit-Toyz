@@ -219,3 +219,7 @@ body {
   .createButton {
     margin-top: 40px;
   }
+
+  .register {
+    color: white;
+  }

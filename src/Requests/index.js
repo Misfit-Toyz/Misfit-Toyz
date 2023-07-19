@@ -151,37 +151,35 @@ export const fetchProducts = async () => {
             },
             body: JSON.stringify(
                 user
-
-            ),
+        ),
         });
         const result = await response.json();
-
-        console.log(result)
+        console.log("REGISTER RESULT", result)
         return result
     } catch (err) {
-        console.error(err);
+        console.log(err);
     }
 }
 
 export const login = async (user) => {
-
-    try {
-        const response = await fetch(`${BASE_URL}/users/login`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                user,
-            )
-        });
-        const result = await response.json();
-        console.log(result);
-        return result
-    } catch (err) {
-        console.error(err);
-    }
-}
+      
+  try {
+    const response = await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+          user,
+      )
+    });
+    const result = await response.json();
+    console.log("LOGIN RESULT", result);
+    return result
+  } catch (err) {
+    console.error(err);
+  }
+};
 export const myData = async (token) => {
     try {
         const response = await fetch(`${BASE_URL}/users/me`, {
