@@ -1,8 +1,7 @@
-
-
-const client = require("./index")
+const {client} = require("./client")
 const {rebuildDB} = require("./SeedData")
 
-rebuildDB()
-    .catch(console.error)
-    .finally(() => client.end())
+client.connect()
+  .then(rebuildDB)
+  .catch(console.error)
+  .finally(() => client.end());
